@@ -1,0 +1,1 @@
+server:  port: 8080  servlet:    context-path: /spring-cloud-learning/feign/consumerspring:  application:    name: spring-cloud-feign-consumerservice:  provider:    name: feign-provider-demo
