@@ -1,8 +1,8 @@
 package org.moonzhou.springcloudlearning.webservice.consumer.config;
 
 import org.apache.cxf.endpoint.Client;
-import org.apache.cxf.interceptor.LoggingInInterceptor;
-import org.apache.cxf.interceptor.LoggingOutInterceptor;
+import org.apache.cxf.ext.logging.LoggingInInterceptor;
+import org.apache.cxf.ext.logging.LoggingOutInterceptor;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
 import org.moonzhou.springcloudlearning.webservice.consumer.factory.TestJaxWsProxyFactory;
