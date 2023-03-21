@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: we-chat-backend
+
+server:
+  port: 8080
+
+wechat:
+  appId: wx3da5f30e0413b989
+  appSecret: 2bba2c0fc0ab8902c3217d390a1d3ec8
+  wxOpenIdUrl: https://api.weixin.qq.com/sns/jscode2session
+  wxGetTokenUrl: https://api.weixin.qq.com/cgi-bin/token
+  wxSendMsgTemplateId: MxkgeQXQT-XK2Y8MTlyEYv9m65a5nBbBlh-PmOw30uU
+  wxSendMsgUrl: https://api.weixin.qq.com/cgi-bin/message/subscribe/send
