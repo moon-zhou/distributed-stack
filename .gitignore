@@ -24,3 +24,14 @@ hs_err_pid*
 
 .idea
 .mvn
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+
+*/target/
+
+*.ipr
+*.iws
