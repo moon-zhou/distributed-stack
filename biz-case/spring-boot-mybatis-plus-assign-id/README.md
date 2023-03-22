@@ -5,13 +5,13 @@
 com.baomidou.mybatisplus.annotation.IdType#ASSIGN_ID
 
 2023-02-28 17:28:12.271 ERROR [http-nio-8080-exec-1] [47dcc778de33457eb390498d2a
-152173] [U00XXXXXX] [001XXXXXX] [com.bmw.cieaf.config.GlobalExceptionHandler] 
+152173] [U00XXXXXX] [001XXXXXX] [com.xxx.xxx.config.GlobalExceptionHandler] 
 ### Error updating database.  Cause: org.postgresql.util.PSQLException: ERROR: d
 uplicate key value violates unique constraint "sys_audit_pkey"
   Detail: Key (id)=(1630500102261559297) already exists.
-### The error may exist in com/bmw/cieaf/sys/audit/mapper/AuditMapper.java (best
+### The error may exist in com/xxx/xxx/sys/audit/mapper/AuditMapper.java (best
  guess)
-### The error may involve com.bmw.cieaf.sys.audit.mapper.AuditMapper.insert-Inli
+### The error may involve com.xxx.xxx.sys.audit.mapper.AuditMapper.insert-Inli
 ne
 ### The error occurred while setting parameters
 ### SQL: INSERT INTO sys_audit  ( id, type, name, content,  deleted, create_time
@@ -28,9 +28,9 @@ org.springframework.dao.DuplicateKeyException:
 ### Error updating database.  Cause: org.postgresql.util.PSQLException: ERROR: d
 uplicate key value violates unique constraint "sys_audit_pkey"
   Detail: Key (id)=(1630500102261559297) already exists.
-### The error may exist in com/bmw/cieaf/sys/audit/mapper/AuditMapper.java (best
+### The error may exist in com/xxx/xxx/sys/audit/mapper/AuditMapper.java (best
  guess)
-### The error may involve com.bmw.cieaf.sys.audit.mapper.AuditMapper.insert-Inli
+### The error may involve com.xxx.xxx.sys.audit.mapper.AuditMapper.insert-Inli
 ne
 ### The error occurred while setting parameters
 ### SQL: INSERT INTO sys_audit  ( id, type, name, content,  deleted, create_time
@@ -63,9 +63,9 @@ tisMapperProxy.java:89)
         at com.sun.proxy.$Proxy171.insert(Unknown Source)
         at cn.bba.boot.starter.mybatisplus.base.BaseService.saveEntity(BaseServi
 ce.java:29)
-        at com.bmw.cieaf.sys.audit.service.impl.AuditServiceImpl.save(AuditServi
+        at com.xxx.xxx.sys.audit.service.impl.AuditServiceImpl.save(AuditServi
 ceImpl.java:42)
-        at com.bmw.cieaf.sys.audit.service.impl.AuditServiceImpl$$FastClassBySpr
+        at com.xxx.xxx.sys.audit.service.impl.AuditServiceImpl$$FastClassBySpr
 ingCGLIB$$5405f302.invoke(<generated>)
         at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:2
 18)
@@ -87,13 +87,13 @@ ReflectiveMethodInvocation.java:186)
 .proceed(CglibAopProxy.java:753)
         at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterce
 ptor.intercept(CglibAopProxy.java:698)
-        at com.bmw.cieaf.sys.audit.service.impl.AuditServiceImpl$$EnhancerBySpri
+        at com.xxx.xxx.sys.audit.service.impl.AuditServiceImpl$$EnhancerBySpri
 ngCGLIB$$5c5d2067.save(<generated>)
-        at com.bmw.cieaf.sys.audit.AuditUtils.addAuditLog(AuditUtils.java:11)
-        at com.bmw.cieaf.sys.audit.AuditUtils.addAuditLog(AuditUtils.java:16)
-        at com.bmw.cieaf.time.common.config.log.RunTimeLogUtil.audit(RunTimeLogU
+        at com.xxx.xxx.sys.audit.AuditUtils.addAuditLog(AuditUtils.java:11)
+        at com.xxx.xxx.sys.audit.AuditUtils.addAuditLog(AuditUtils.java:16)
+        at com.xxx.xxx.time.common.config.log.RunTimeLogUtil.audit(RunTimeLogU
 til.java:125)
-        at com.bmw.cieaf.time.common.config.log.RunTimeLogAspect.around(RunTimeL
+        at com.xxx.xxx.time.common.config.log.RunTimeLogAspect.around(RunTimeL
 ogAspect.java:79)
         at sun.reflect.GeneratedMethodAccessor150.invoke(Unknown Source)
         at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAcces
@@ -117,7 +117,7 @@ ReflectiveMethodInvocation.java:186)
 .proceed(CglibAopProxy.java:753)
         at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterce
 ptor.intercept(CglibAopProxy.java:698)
-        at com.bmw.cieaf.time.attendance.controller.AttendanceController$$Enhanc
+        at com.xxx.xxx.time.attendance.controller.AttendanceController$$Enhanc
 erBySpringCGLIB$$b3496a26.attendance(<generated>)
         at sun.reflect.GeneratedMethodAccessor304.invoke(Unknown Source)
         at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAcces
@@ -157,7 +157,7 @@ ilterChain.java:162)
 icationFilterChain.java:189)
         at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationF
 ilterChain.java:162)
-        at com.bmw.cieaf.time.grayboxtest.config.GrayBoxTestFilter.doFilterInter
+        at com.xxx.xxx.time.grayboxtest.config.GrayBoxTestFilter.doFilterInter
 nal(GrayBoxTestFilter.java:71)
         at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerR
 equestFilter.java:117)
@@ -315,7 +315,7 @@ a:50)
 sorImpl.java:43)
         at java.lang.reflect.Method.invoke(Method.java:498)
         at org.apache.ibatis.plugin.Invocation.proceed(Invocation.java:49)
-        at com.bmw.cieaf.sys.audit.SqlTrackInterceptor.intercept(SqlTrackInterce
+        at com.xxx.xxx.sys.audit.SqlTrackInterceptor.intercept(SqlTrackInterce
 ptor.java:37)
         at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:62)
         at com.sun.proxy.$Proxy251.update(Unknown Source)
