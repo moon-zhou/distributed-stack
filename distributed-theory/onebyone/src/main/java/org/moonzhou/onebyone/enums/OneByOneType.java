@@ -18,6 +18,11 @@ public enum OneByOneType {
     USER_IDEMPOTENT,
 
     /**
+     * ip级限流
+     */
+    IP_LIMIT,
+
+    /**
      * 全局限流
      */
     ALL_LIMIT

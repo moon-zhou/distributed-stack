@@ -71,7 +71,8 @@ public class RedisService {
 
     /**
      * 获取超时时间
-     * @param key Redis键
+     *
+     * @param key  Redis键
      * @param unit 时间单位
      * @return
      */
@@ -390,33 +391,37 @@ public class RedisService {
 
     /**
      * 自增
+     *
      * @param key
      * @return
      */
-    public Long increment(String key){
+    public Long increment(String key) {
         return redisTemplate.opsForValue().increment(key);
     }
 
     /**
      * 自减
+     *
      * @param key
      * @return
      */
-    public Long decrement(String key){
+    public Long decrement(String key) {
         return redisTemplate.opsForValue().decrement(key);
     }
 
     /**
      * HyperLogLog计数
+     *
      * @param key
      * @param value
      */
     public Long hyperLogLogAdd(String key, Object... value) {
-        return redisTemplate.opsForHyperLogLog().add(key,value);
+        return redisTemplate.opsForHyperLogLog().add(key, value);
     }
 
     /**
      * HyperLogLog获取总数
+     *
      * @param key
      */
     public Long hyperLogLogCount(String... key) {
@@ -424,37 +429,40 @@ public class RedisService {
     }
 
     /**
-     *  加锁
-     * @param key 键
-     * @param value 值
+     * 加锁
+     *
+     * @param key    键
+     * @param value  值
      * @param second 秒
      **/
-    public Boolean tryLock(String key,String value, Long second){
-        Boolean lockStatus = this.redisTemplate.opsForValue().setIfAbsent(key,value, Duration.ofSeconds(second));
+    public Boolean tryLock(String key, String value, Long second) {
+        Boolean lockStatus = this.redisTemplate.opsForValue().setIfAbsent(key, value, Duration.ofSeconds(second));
         return lockStatus;
     }
 
     /**
-     *  加锁
-     * @param key 键
-     * @param value 值
+     * 加锁
+     *
+     * @param key     键
+     * @param value   值
      * @param timeout 时间
-     * @param unit 时间类型
+     * @param unit    时间类型
      **/
-    public Boolean tryLock(String key,String value, long timeout, TimeUnit unit){
-        Boolean lockStatus = this.redisTemplate.opsForValue().setIfAbsent(key,value, timeout, unit);
+    public Boolean tryLock(String key, String value, long timeout, TimeUnit unit) {
+        Boolean lockStatus = this.redisTemplate.opsForValue().setIfAbsent(key, value, timeout, unit);
         return lockStatus;
     }
 
     /**
-     *  释放锁
-     * @param key 键
+     * 释放锁
+     *
+     * @param key   键
      * @param value 值
      **/
-    public Long unLock(String key,String value){
+    public Long unLock(String key, String value) {
         String luaScript = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
-        RedisScript<Long> redisScript = new DefaultRedisScript<>(luaScript,Long.class);
-        Long releaseStatus = (Long)this.redisTemplate.execute(redisScript, Collections.singletonList(key),value);
+        RedisScript<Long> redisScript = new DefaultRedisScript<>(luaScript, Long.class);
+        Long releaseStatus = (Long) this.redisTemplate.execute(redisScript, Collections.singletonList(key), value);
         return releaseStatus;
     }
 }

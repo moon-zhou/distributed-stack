@@ -6,9 +6,11 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 业务层级的流量控制，根据类型控制是防重，幂等，还是限流
+ *
  * @author moon zhou
  */
 @Target(ElementType.METHOD) // 作用到方法上
@@ -16,15 +18,20 @@ import java.lang.annotation.Target;
 public @interface OneByOne {
     /**
      * 业务场景编码：
-     *     保存xxx save-xxx
-     *     更新xxx update-xxx
+     * 保存xxx save-xxx
+     * 更新xxx update-xxx
      */
     String bizCode() default "";
 
     /**
      * 间隔时间(ms)，小于此时间视为重复提交
      */
-    int interval() default 3000;
+    long timeout() default 3000L;
+
+    /**
+     * 间隔单位，默认ms
+     */
+    TimeUnit timeunit() default TimeUnit.MILLISECONDS;
 
     /**
      * 提示消息
