@@ -1,6 +1,5 @@
 package org.moonzhou.onebyone.aspect;
 
-import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +14,6 @@ import org.moonzhou.onebyone.enums.OneByOneType;
 import org.moonzhou.onebyone.exception.BaseException;
 import org.moonzhou.onebyone.utils.RedisService;
 import org.springframework.core.annotation.Order;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -67,10 +65,10 @@ public class OneByOneAspect {
         OneByOneType oneByOneType = oneByOne.oneByOneType();
 
         switch (oneByOneType) {
-            case IP_LIMIT -> key = String.format(ONE_BY_ONE_REDIS_KEY_FORMAT, oneByOne.bizCode(), requestIp);
+            case IP_LIMIT -> key = String.format(ONE_BY_ONE_REDIS_KEY_FORMAT, oneByOne.bizCode(), requestIp); // TODO 获取request IP
             case USER_UNREPEATED -> key = String.format(ONE_BY_ONE_REDIS_KEY_FORMAT, oneByOne.bizCode(), "userId");
-            case USER_IDEMPOTENT -> key = String.format(ONE_BY_ONE_REDIS_KEY_FORMAT, oneByOne.bizCode(), "userId");
-            case ALL_LIMIT -> key = String.format(ONE_BY_ONE_REDIS_KEY_FORMAT, oneByOne.bizCode(), "");
+            case USER_IDEMPOTENT -> key = String.format(ONE_BY_ONE_REDIS_KEY_FORMAT, oneByOne.bizCode(), "userId"); // TODO 幂等需要缓存用户业务结果
+            case ALL_LIMIT -> key = String.format(ONE_BY_ONE_REDIS_KEY_FORMAT, oneByOne.bizCode(), ""); // 场景防重，可以结合限流算法做细分实现
             default -> key = String.format(ONE_BY_ONE_REDIS_KEY_FORMAT, oneByOne.bizCode(), "");
         }
 
