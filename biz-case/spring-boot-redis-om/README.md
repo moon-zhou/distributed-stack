@@ -26,7 +26,6 @@
 ## 其他使用方式
 1. 与JPA类似，根据方法名称自动实现查询逻辑的衍生查询
    ![redis-om-query-method](./img/redis-om-query-method.png)
-2. 
 
 
 ## 注意点
@@ -53,3 +52,4 @@
 ## 参考
 1. [Redis OM Spring](https://redis.io/docs/clients/om-clients/stack-spring/)
 2. [官方源码及示例](https://github.com/redis/redis-om-spring)
+3. [Spring Data Redis](https://docs.spring.io/spring-data/redis/docs/current/reference/html/)
