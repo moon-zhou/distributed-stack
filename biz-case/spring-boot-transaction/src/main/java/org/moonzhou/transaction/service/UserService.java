@@ -1,4 +1,4 @@
-package org.moonzhou.transaction.effect;
+package org.moonzhou.transaction.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -33,8 +34,22 @@ public class UserService extends ServiceImpl<UserMapper, User> implements IServi
     public Long save(UserParam param) {
         User entity = new User();
         BeanUtils.copyProperties(param, entity);
+        entity.setUserNo(UUID.randomUUID().toString()); // 实际业务中，可以实现对应生成器，加入机房信息，机器信息等，该核心字段可用于数据分库分表的字段
         super.save(entity);
         return entity.getId();
+    }
+
+    public Long saveFail(UserParam param) {
+        User entity = new User();
+        BeanUtils.copyProperties(param, entity);
+        entity.setUserNo(UUID.randomUUID().toString()); // 实际业务中，可以实现对应生成器，加入机房信息，机器信息等，该核心字段可用于数据分库分表的字段
+        super.save(entity);
+        exception();
+        return entity.getId();
+    }
+
+    public void delete(Long id) {
+        super.removeById(id);
     }
 
     public void update(Long id, UserParam param) {
@@ -49,5 +64,9 @@ public class UserService extends ServiceImpl<UserMapper, User> implements IServi
                 .list().stream()
                 .map(UserDTO::new)
                 .collect(Collectors.toList());
+    }
+
+    private void exception() {
+        throw new RuntimeException("test exception...");
     }
 }

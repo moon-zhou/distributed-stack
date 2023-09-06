@@ -2,7 +2,7 @@ package org.moonzhou.transaction.controller;
 
 import org.moonzhou.transaction.common.dto.Result;
 import org.moonzhou.transaction.dto.UserDTO;
-import org.moonzhou.transaction.effect.UserService;
+import org.moonzhou.transaction.service.UserService;
 import org.moonzhou.transaction.param.UserParam;
 import org.moonzhou.transaction.param.UserQueryParam;
 import org.springframework.validation.annotation.Validated;

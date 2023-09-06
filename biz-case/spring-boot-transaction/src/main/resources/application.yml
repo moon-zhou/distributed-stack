@@ -7,7 +7,7 @@ spring:
       matching-strategy: ANT_PATH_MATCHER
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://127.0.0.1:5432/moon?currentSchema=moon_mybatis_plus_advance
+    url: jdbc:postgresql://127.0.0.1:5432/moon?currentSchema=moon_transaction
     username: moon
     password: moon
   sql:
@@ -15,6 +15,11 @@ spring:
       mode: embedded
       schema-locations: classpath:db/schema.sql
       data-locations: classpath:db/data.sql
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
 springdoc:
   api-docs:
     enabled: true
