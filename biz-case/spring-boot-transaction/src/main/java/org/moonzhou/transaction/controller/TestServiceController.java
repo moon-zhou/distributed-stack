@@ -2,17 +2,13 @@ package org.moonzhou.transaction.controller;
 
 import lombok.AllArgsConstructor;
 import org.moonzhou.transaction.common.dto.Result;
-import org.moonzhou.transaction.dto.UserDTO;
 import org.moonzhou.transaction.param.UserAuthParam;
 import org.moonzhou.transaction.param.UserInfoParam;
 import org.moonzhou.transaction.param.UserParam;
-import org.moonzhou.transaction.param.UserQueryParam;
 import org.moonzhou.transaction.service.UserAuthService;
 import org.moonzhou.transaction.service.UserService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * @author moon zhou
@@ -20,8 +16,8 @@ import java.util.List;
  */
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/v1/test")
-public class TestController {
+@RequestMapping("/api/v1/test/service")
+public class TestServiceController {
 
     private final UserService userService;
 
