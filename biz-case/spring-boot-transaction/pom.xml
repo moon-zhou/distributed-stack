@@ -19,7 +19,8 @@
         <maven.compiler.target>17</maven.compiler.target>
 
         <mybatis-plus-boot-starter.version>3.5.3.2</mybatis-plus-boot-starter.version>
-        <springdoc.version>2.0.4</springdoc.version>
+        <!--<springdoc.version>2.0.4</springdoc.version>-->
+        <knife4j-openapi3-jakarta-spring-boot-starter.version>4.3.0</knife4j-openapi3-jakarta-spring-boot-starter.version>
         <postgresql.version>42.6.0</postgresql.version>
     </properties>
 
@@ -43,10 +44,15 @@
         </dependency>
 
         <!--springfox swagger官方Starter-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>${springdoc.version}</version>
+        </dependency>-->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+            <version>${knife4j-openapi3-jakarta-spring-boot-starter.version}</version>
         </dependency>
 
         <!--lombok依赖-->
