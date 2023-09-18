@@ -1,0 +1,18 @@
+spring:
+  data:
+    redis:
+      database:
+      host:
+      port:
+      password:
+      ssl:
+      timeout:
+      connectTimeout:
+      redisson:
+        file: classpath:redisson.yaml
+      #clientName:
+      #cluster:
+      #  nodes:
+      #sentinel:
+      #  master:
+      #  nodes:
