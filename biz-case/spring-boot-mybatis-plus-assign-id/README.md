@@ -5,7 +5,7 @@
 com.baomidou.mybatisplus.annotation.IdType#ASSIGN_ID
 
 2023-02-28 17:28:12.271 ERROR [http-nio-8080-exec-1] [47dcc778de33457eb390498d2a
-152173] [U00XXXXXX] [001XXXXXX] [com.xxx.xxx.config.GlobalExceptionHandler] 
+152173] [UIDXXXXXX] [001XXXXXX] [com.xxx.xxx.config.GlobalExceptionHandler] 
 ### Error updating database.  Cause: org.postgresql.util.PSQLException: ERROR: d
 uplicate key value violates unique constraint "sys_audit_pkey"
   Detail: Key (id)=(1630500102261559297) already exists.
