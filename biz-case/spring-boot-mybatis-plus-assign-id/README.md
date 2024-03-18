@@ -61,7 +61,7 @@ Invoker.invoke(MybatisMapperProxy.java:148)
         at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(Myba
 tisMapperProxy.java:89)
         at com.sun.proxy.$Proxy171.insert(Unknown Source)
-        at cn.bba.boot.starter.mybatisplus.base.BaseService.saveEntity(BaseServi
+        at org.moonzhou.boot.starter.mybatisplus.base.BaseService.saveEntity(BaseServi
 ce.java:29)
         at com.xxx.xxx.sys.audit.service.impl.AuditServiceImpl.save(AuditServi
 ceImpl.java:42)
@@ -177,13 +177,13 @@ ingFilterProxy.java:267)
 icationFilterChain.java:189)
         at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationF
 ilterChain.java:162)
-        at cn.bba.boot.starter.sso.web.SsoOAuth2Filter.doFilter(SsoOAuth2Filter.
+        at org.moonzhou.boot.starter.sso.web.SsoOAuth2Filter.doFilter(SsoOAuth2Filter.
 java:45)
         at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(Appl
 icationFilterChain.java:189)
         at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationF
 ilterChain.java:162)
-        at cn.bba.boot.starter.sso.app.SsoAppFilter.doFilter(SsoAppFilter.java:8
+        at org.moonzhou.boot.starter.sso.app.SsoAppFilter.doFilter(SsoAppFilter.java:8
 6)
         at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(Appl
 icationFilterChain.java:189)
