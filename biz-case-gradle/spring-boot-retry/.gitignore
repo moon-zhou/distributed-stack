@@ -1,0 +1,39 @@
+HELP.md
+.gradle
+build/
+# 忽略Gradle Wrapper的缓存（可选，如果你希望团队共享Gradle Wrapper）
+#!/gradle/wrapper/gradle-wrapper.jar
+# 注意：上面的行是注释掉的，表示不忽略。如果你确定要忽略Gradle Wrapper的缓存，可以删除行首的#
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
