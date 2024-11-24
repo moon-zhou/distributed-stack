@@ -1,0 +1,48 @@
+server:
+  port: 80
+#  compression:
+#    enabled: true
+#    mime-types: application/javascript,text/css,application/json,application/xml,text/html,text/xml,text/plain
+#    min-response-size: 2KB
+
+spring:
+  application:
+    name: spring-boot-gz
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/moon?currentSchema=moon_gz
+    username: moon
+    password: moon
+    driver-class-name: org.postgresql.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 10
+      maximum-pool-size: 20
+      idle-timeout: 600000
+      max-life-time: 1800000
+  jpa:
+    hibernate:
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        # physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+        hbm2ddl:
+          auto: update
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      database: 1
+      timeout: 1800s # 使用时间格式化
+      lettuce:
+        pool:
+          max-active: 20  # 最大连接数
+          max-wait: -1    # 最大阻塞等待时间(负数表示没限制)
+          max-idle: 5     # 最大空闲
+          min-idle: 0     # 最小空闲

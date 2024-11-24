@@ -1,0 +1,50 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.5'
+//	id 'org.postgresql' version '42.7.4'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'org.moonzhou'
+version = '0.0.1-SNAPSHOT'
+
+def javaHomeFromEnv = System.getenv("JAVA_21_HOME")
+tasks.withType(JavaCompile) {
+	options.fork = true
+	options.forkOptions.javaHome = file(javaHomeFromEnv)
+}
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+repositories {
+	// 阿里云镜像
+	maven {
+		url 'https://maven.aliyun.com/repository/public/'
+	}
+	// 腾讯云镜像
+	maven {
+		url 'https://mirrors.cloud.tencent.com/nexus/repository/maven-public/'
+	}
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.postgresql:postgresql:42.7.4'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.redisson:redisson-spring-boot-starter:3.39.0'
+	implementation 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
