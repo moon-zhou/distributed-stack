@@ -1,0 +1,80 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.5.3'
+	id 'io.spring.dependency-management' version '1.1.7'
+	id 'org.graalvm.buildtools.native' version '0.10.6'
+	id 'org.asciidoctor.jvm.convert' version '3.3.2'
+}
+
+group = 'org.moonzhou'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(24)
+		vendor = JvmVendorSpec.ORACLE
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	// 阿里云镜像
+	maven {
+		url 'https://maven.aliyun.com/repository/public/'
+	}
+	maven {
+		url 'https://maven.aliyun.com/repository/central'
+	}
+	// 腾讯云镜像
+	maven {
+		url 'https://mirrors.cloud.tencent.com/nexus/repository/maven-public/'
+	}
+	mavenLocal()
+	mavenCentral()
+}
+
+ext {
+	set('snippetsDir', file("build/generated-snippets"))
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	outputs.dir snippetsDir
+	useJUnitPlatform()
+}
+
+tasks.named('asciidoctor') {
+	inputs.dir snippetsDir
+	dependsOn test
+}
+
+// Native Image 配置
+graalvmNative {
+	binaries {
+		main {
+			imageName = 'spring-boot-native'
+			mainClass = 'org.moonzhou.springbootnative.SpringBootNativeApplication'
+			// 启用移除未使用的自动配置功能
+			excludeConfig.put('org.springframework.boot:spring-boot-starter-test', ['^/META-INF/native-image/.*', '^/config/.*'])
+		}
+	}
+}
+
+// Build the native image
+tasks.named('nativeCompile') {
+	dependsOn 'build'
+}
