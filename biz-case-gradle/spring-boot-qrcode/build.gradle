@@ -1,0 +1,72 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.5.3'
+	id 'io.spring.dependency-management' version '1.1.7'
+	id 'org.graalvm.buildtools.native' version '0.10.6'
+}
+
+group = 'org.moonzhou'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(24)
+		vendor = JvmVendorSpec.ORACLE
+	}
+}
+
+repositories {
+	// 阿里云镜像
+	maven {
+		url 'https://maven.aliyun.com/repository/public/'
+	}
+	maven {
+		url 'https://maven.aliyun.com/repository/central'
+	}
+	// 腾讯云镜像
+	maven {
+		url 'https://mirrors.cloud.tencent.com/nexus/repository/maven-public/'
+	}
+	mavenLocal()
+	mavenCentral()
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	// 添加生成二维码所需依赖
+	implementation 'com.google.zxing:core:3.5.3'
+	implementation 'com.google.zxing:javase:3.5.3'
+	
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+// Native Image 配置
+graalvmNative {
+	binaries {
+		main {
+			imageName = 'spring-boot-qrcode'
+			mainClass = 'org.moonzhou.springbootqrcode.SpringBootQrcodeApplication'
+			// 启用移除未使用的自动配置功能
+			excludeConfig.put('org.springframework.boot:spring-boot-starter-test', ['^/META-INF/native-image/.*', '^/config/.*'])
+		}
+	}
+}
+
+// Build the native image
+tasks.named('nativeCompile') {
+	dependsOn 'build'
+}
