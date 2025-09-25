@@ -29,3 +29,17 @@ logging:
 captcha:
   # 存储方式：可选枚举值为 'session'（默认）或 'redis'
   storage: redis  # ✅ 可选值: session, redis
+
+# Tianai captcha configuration
+tianai:
+  captcha:
+    cache:
+      type: redis # 使用redis作为缓存
+    sliding:
+      enabled: true # 启用滑块验证码
+    rotate:
+      enabled: true # 启用旋转验证码
+    click:
+      enabled: true # 启用点选验证码
+    restore:
+      enabled: true # 启用还原验证码

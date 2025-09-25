@@ -9,7 +9,8 @@ import lombok.Getter;
 public enum CaptchaType {
     
     HUTOOL("hutool", "Hutool验证码"),
-    EASY("easy", "EasyCaptcha验证码");
+    EASY("easy", "EasyCaptcha验证码"),
+    TIANAI("tianai", "Tianai验证码");
     
     private final String code;
     private final String description;
