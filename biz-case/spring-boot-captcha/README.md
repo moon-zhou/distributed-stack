@@ -11,6 +11,10 @@
 - 使用JDK 21
 - 集成Hutool和EasyCaptcha两种验证码组件
 - 提供RESTful API接口
+- 支持Session和Redis两种存储方式
+- 支持设备ID识别
+- 支持指定存储类型进行测试
+- 采用面向接口编程，易于扩展
 
 ## 项目结构
 
@@ -25,13 +29,20 @@
         │           └── captcha
         │               ├── CaptchaApplication.java
         │               ├── config
-        │               │   └── CaptchaConfig.java
+        │               │   ├── CaptchaConfig.java
+        │               │   └── RedisConfig.java
         │               ├── controller
         │               │   └── CaptchaController.java
         │               └── service
+        │                   ├── CaptchaGenerator.java
         │                   ├── CaptchaService.java
+        │                   ├── CaptchaStorageService.java
         │                   └── impl
-        │                       └── CaptchaServiceImpl.java
+        │                       ├── CaptchaServiceImpl.java
+        │                       ├── HutoolCaptchaGenerator.java
+        │                       ├── EasyCaptchaGenerator.java
+        │                       ├── SessionCaptchaStorageServiceImpl.java
+        │                       └── RedisCaptchaStorageServiceImpl.java
         └── resources
             └── application.yml
 ```
@@ -40,16 +51,48 @@
 
 1. **Hutool-captcha**: Hutool工具库中的验证码模块
 2. **easy-captcha**: 简单易用的Java图形验证码
+3. **Spring Data Redis**: 用于Redis存储支持
 
 ## 接口说明
 
 ### Hutool Captcha
-- 生成验证码: `GET /captcha/hutool`
-- 验证验证码: `GET /captcha/hutool/validate?code=xxxx`
+- 生成验证码(默认存储): `GET /captcha/hutool?deviceID=xxx`
+- 验证验证码(默认存储): `GET /captcha/hutool/validate?code=xxxx&deviceID=xxx`
+- 生成验证码(Session存储): `GET /captcha/hutool/session?deviceID=xxx`
+- 验证验证码(Session存储): `GET /captcha/hutool/validate/session?code=xxxx&deviceID=xxx`
+- 生成验证码(Redis存储): `GET /captcha/hutool/redis?deviceID=xxx`
+- 验证验证码(Redis存储): `GET /captcha/hutool/validate/redis?code=xxxx&deviceID=xxx`
 
 ### Easy Captcha
-- 生成验证码: `GET /captcha/easy`
-- 验证验证码: `GET /captcha/easy/validate?code=xxxx`
+- 生成验证码(默认存储): `GET /captcha/easy?deviceID=xxx`
+- 验证验证码(默认存储): `GET /captcha/easy/validate?code=xxxx&deviceID=xxx`
+- 生成验证码(Session存储): `GET /captcha/easy/session?deviceID=xxx`
+- 验证验证码(Session存储): `GET /captcha/easy/validate/session?code=xxxx&deviceID=xxx`
+- 生成验证码(Redis存储): `GET /captcha/easy/redis?deviceID=xxx`
+- 验证验证码(Redis存储): `GET /captcha/easy/validate/redis?code=xxxx&deviceID=xxx`
+
+## 配置说明
+
+在 `application.yml` 中可以通过以下配置项控制验证码存储方式：
+
+```yaml
+captcha:
+  storage: session # 可选值: session (默认) 或 redis
+```
+
+## 架构说明
+
+### 验证码生成器 (CaptchaGenerator)
+项目通过[CaptchaGenerator](src/main/java/org/moonzhou/captcha/service/CaptchaGenerator.java)接口抽象了不同验证码组件的生成逻辑，目前实现了：
+- [HutoolCaptchaGenerator](src/main/java/org/moonzhou/captcha/service/impl/HutoolCaptchaGenerator.java)
+- [EasyCaptchaGenerator](src/main/java/org/moonzhou/captcha/service/impl/EasyCaptchaGenerator.java)
+
+### 存储服务 (CaptchaStorageService)
+通过[CaptchaStorageService](src/main/java/org/moonzhou/captcha/service/CaptchaStorageService.java)接口抽象了验证码的存储逻辑，支持多种存储方式：
+- [SessionCaptchaStorageServiceImpl](src/main/java/org/moonzhou/captcha/service/impl/SessionCaptchaStorageServiceImpl.java) - 基于Session存储
+- [RedisCaptchaStorageServiceImpl](src/main/java/org/moonzhou/captcha/service/impl/RedisCaptchaStorageServiceImpl.java) - 基于Redis存储
+
+这种设计符合面向接口编程的原则，易于扩展新的验证码生成器和存储方式。
 
 ## 运行项目
 
@@ -73,5 +116,6 @@ java -jar target/spring-boot-captcha-1.0-SNAPSHOT.jar
 
 ## 注意事项
 
-1. 验证码在验证一次后会从session中清除
+1. 验证码在验证一次后会从存储中清除
 2. 验证码不区分大小写
+3. 如果使用Redis存储，需要配置Redis连接参数
