@@ -1,0 +1,21 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: spring-boot-captcha
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+logging:
+  level:
+    root: INFO
+    org.moonzhou.captcha: DEBUG
+
+# Captcha configuration
+captcha:
+  enabled: true
+  type: SLIDER
