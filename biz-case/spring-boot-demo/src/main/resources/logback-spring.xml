@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOG_HOME" value="logs"/>
+    
+    <!-- Controller日志 -->
+    <appender name="CONTROLLER_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/controller.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{traceId}] %-5level %logger{50} [%line] - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/controller.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+    
+    <!-- Service日志 -->
+    <appender name="SERVICE_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/service.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{traceId}] %-5level %logger{50} [%line] - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/service.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+    
+    <!-- Mapper日志 -->
+    <appender name="MAPPER_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/mapper.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{traceId}] %-5level %logger{50} [%line] - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/mapper.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+    
+    <!-- 控制台日志 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{traceId}] %-5level %logger{50} [%line] - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <!-- Controller日志记录器 -->
+    <logger name="com.example.demo.controller" level="DEBUG" additivity="false">
+        <appender-ref ref="CONTROLLER_LOG"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    
+    <!-- Service日志记录器 -->
+    <logger name="com.example.demo.service" level="DEBUG" additivity="false">
+        <appender-ref ref="SERVICE_LOG"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    
+    <!-- Mapper日志记录器 -->
+    <logger name="com.example.demo.mapper" level="DEBUG" additivity="false">
+        <appender-ref ref="MAPPER_LOG"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>
