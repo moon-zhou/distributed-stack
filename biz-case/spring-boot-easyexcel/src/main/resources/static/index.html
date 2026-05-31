@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>EasyExcel 示例</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .btn {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .btn-export {
+            background-color: #008CBA;
+        }
+        input[type=file] {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>EasyExcel 导入导出示例</h1>
+    
+    <div class="container">
+        <h2>导出 Excel</h2>
+        <p>点击下面的按钮导出用户数据到 Excel 文件</p>
+        <a href="/api/excel/export" class="btn btn-export">导出用户数据</a>
+    </div>
+    
+    <div class="container">
+        <h2>导入 Excel</h2>
+        <p>选择一个 Excel 文件导入用户数据</p>
+        <form action="/api/excel/import" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".xlsx,.xls" required>
+            <br>
+            <input type="submit" class="btn" value="导入用户数据">
+        </form>
+    </div>
+    
+    <div class="container">
+        <h2>示例数据</h2>
+        <p>点击查看示例数据</p>
+        <a href="/api/excel/sample" class="btn">查看示例数据</a>
+    </div>
+</body>
+</html>

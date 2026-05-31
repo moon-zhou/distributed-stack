@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:openspec_demo;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: true
+  h2:
+    console:
+      enabled: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    url: /openapi/openapi.yaml
+
+security:
+  jwt:
+    secret: Tm90QVNob3J0S2V5Rm9ySldURGVtb0FwcGxpY2F0aW9uMTIzNDU2Nzg5
+    expiration-seconds: 86400

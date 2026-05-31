@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: spring-boot-ollama
+  ai:
+    ollama:
+      base-url: localhost:11434 # Ollama API服务器运行的基本URL，默认为localhost:11434
+      init:
+        pull-model-strategy: always # 模型的自动获取策略
+        timeout: 60s # 超时时间
+        max-retries: 1 # 最大重试次数
+      embedding:
+        enabled: true # 启用Ollama嵌入模型的自动配置
+        options:
+          model: mistral # 要使用的支持模型的名称
+          keep_alive: 5m # 控制模型在请求后将保持在内存中的时间
+          truncate: true # 是否截断输入以适应上下文长度
+

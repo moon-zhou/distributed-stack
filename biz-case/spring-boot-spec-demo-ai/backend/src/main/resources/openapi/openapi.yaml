@@ -1,0 +1,304 @@
+openapi: 3.0.3
+info:
+  title: OpenSpec Demo API
+  version: 1.0.0
+  description: Spring Boot API-first demo with JWT login, single-table and multi-table operations.
+servers:
+  - url: http://localhost:8080
+paths:
+  /auth/login:
+    post:
+      operationId: login
+      tags: [Auth]
+      summary: Login and get JWT token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          description: Invalid credentials
+
+  /users:
+    post:
+      operationId: createUser
+      tags: [Users]
+      summary: Create user (single table operation)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreateRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+    get:
+      operationId: listUsers
+      tags: [Users]
+      summary: List users
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserResponse'
+
+  /users/{id}:
+    get:
+      operationId: getUserById
+      tags: [Users]
+      summary: Get user by id
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '404':
+          description: Not found
+    put:
+      operationId: updateUser
+      tags: [Users]
+      summary: Update user
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+    delete:
+      operationId: deleteUser
+      tags: [Users]
+      summary: Delete user
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: No Content
+
+  /orders:
+    post:
+      operationId: createOrder
+      tags: [Orders]
+      summary: Create order (multi-table operation)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrderRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+    get:
+      operationId: listOrders
+      tags: [Orders]
+      summary: List orders
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderResponse'
+
+  /orders/{id}:
+    get:
+      operationId: getOrderById
+      tags: [Orders]
+      summary: Get order by id
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+        '404':
+          description: Not found
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    LoginRequest:
+      type: object
+      required: [username, password]
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        tokenType:
+          type: string
+          example: Bearer
+
+    UserCreateRequest:
+      type: object
+      required: [username, password, email]
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+          format: email
+
+    UserUpdateRequest:
+      type: object
+      required: [email]
+      properties:
+        email:
+          type: string
+          format: email
+
+    UserResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        email:
+          type: string
+          format: email
+
+    CreateOrderRequest:
+      type: object
+      required: [userId, items]
+      properties:
+        userId:
+          type: integer
+          format: int64
+        items:
+          type: array
+          items:
+            type: object
+            required: [productId, quantity]
+            properties:
+              productId:
+                type: integer
+                format: int64
+              quantity:
+                type: integer
+                minimum: 1
+
+    OrderResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        userId:
+          type: integer
+          format: int64
+        status:
+          type: string
+        totalAmount:
+          type: number
+          format: double
+        createdAt:
+          type: string
+          format: date-time
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              productId:
+                type: integer
+                format: int64
+              productName:
+                type: string
+              quantity:
+                type: integer
+              unitPrice:
+                type: number
+                format: double
+              lineAmount:
+                type: number
+                format: double

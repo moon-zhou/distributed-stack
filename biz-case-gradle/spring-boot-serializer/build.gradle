@@ -1,0 +1,50 @@
+plugins {
+    id 'org.springframework.boot' version '3.5.3'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id 'java'
+    id 'org.graalvm.buildtools.native' version '0.10.6'
+}
+
+group = 'org.moonzhou'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(24)
+        vendor = JvmVendorSpec.matching("Oracle")
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    // 阿里云镜像
+    maven {
+        url 'https://maven.aliyun.com/repository/public/'
+    }
+    maven {
+        url 'https://maven.aliyun.com/repository/central'
+    }
+    // 腾讯云镜像
+    maven {
+        url 'https://mirrors.cloud.tencent.com/nexus/repository/maven-public/'
+    }
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

@@ -1,0 +1,26 @@
+{
+  "name": "openspec-demo-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "generate:api": "openapi --input ../backend/src/main/resources/openapi/openapi.yaml --output src/generated --client fetch",
+    "test": "vitest run",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.3",
+    "@vue/test-utils": "^2.4.6",
+    "jsdom": "^26.1.0",
+    "openapi-typescript-codegen": "^0.29.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.2.6",
+    "vitest": "^3.1.2"
+  }
+}
