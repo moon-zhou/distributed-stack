@@ -1,0 +1,77 @@
+// 应用必要的 Gradle 插件
+plugins {
+	// 核心 Java 插件，用于编译、测试和打包 Java 项目
+	id 'java'
+
+	// Spring Boot 插件，提供构建可执行 Spring Boot 应用的能力（如 bootJar）
+	id 'org.springframework.boot' version '4.0.1'
+
+	// Spring 依赖管理插件，自动管理 Spring Boot 依赖的版本
+	id 'io.spring.dependency-management' version '1.1.7'
+
+	// GraalVM 原生镜像支持插件，用于将应用编译为原生可执行文件
+	id 'org.graalvm.buildtools.native' version '0.11.3'
+}
+
+// 项目元数据
+group = 'org.moonzhou.distributed-stack'
+version = '0.0.1-SNAPSHOT'
+description = 'Demo project for performance test'
+
+// 配置 Java 工具链，指定使用 Java 24 编译
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(24)
+	}
+}
+
+// 配置依赖配置项
+configurations {
+	compileOnly {
+		// compileOnly 依赖也包含注解处理器（如 Lombok）
+		extendsFrom annotationProcessor
+	}
+}
+
+// 配置仓库：优先使用国内镜像加速依赖下载
+repositories {
+	// 阿里云镜像
+	maven {
+		url 'https://maven.aliyun.com/repository/public/'
+	}
+	maven {
+		url 'https://maven.aliyun.com/repository/central'
+	}
+	// 腾讯云镜像
+	maven {
+
+		url 'https://mirrors.cloud.tencent.com/nexus/repository/maven-public/'
+	}
+	mavenLocal() // 本地 Maven 仓库
+	mavenCentral() // 中央仓库兜底
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+	implementation 'com.squareup.okhttp3:okhttp:5.3.2'
+
+	// 编译时注解处理：Lombok（简化 POJO 代码）
+	compileOnly 'org.projectlombok:lombok'
+
+	// 开发阶段热重载工具
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// 注解处理器路径（用于编译期处理 Lombok 注解）
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// 测试依赖：Spring Boot Web MVC 测试支持
+	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+	// JUnit Platform 启动器（运行测试引擎）
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+// 项目依赖
+
+// 配置测试任务使用 JUnit 5 平台
+tasks.named('test') {
+	useJUnitPlatform()
+}

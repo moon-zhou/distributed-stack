@@ -1,6 +1,6 @@
 -- ----------------------------
--- Records of user
+-- Records of t_user
 -- ----------------------------
 BEGIN;
-INSERT INTO "user" VALUES (1, '001001', 'moon', 18);
+INSERT INTO "t_user" VALUES (1, '001001', 'moon', 18);
 COMMIT;
